@@ -2,8 +2,10 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
+import AppLoading from 'expo-app-loading';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
+import { useFonts, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const login = async () => {
@@ -47,51 +49,73 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
     setLoggedIn(false);
   }
 
-  const [email, setEmail] = React.useState("email");
-  const [password, setPassword] = React.useState("password");
+  let [fontsLoaded] = useFonts({Comfortaa_400Regular});
+
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [tokenKey, setTokenKey] = React.useState("");
   const [username, setUsername] = React.useState("");
 
   return (
     <View style={styles.container}>
+        <Text style={{
+            fontFamily: 'Comfortaa_400Regular',
+            fontSize: 36,
+            alignSelf: 'baseline',
+            left: '10%'
+        }}>Log in</Text>
         <TextInput
             style={{
                 height: 40,
-                borderColor: 'gray',
-                borderWidth: 1,
-                color: 'white'
+                width: '80%',
+                backgroundColor: 'white',
+                color: 'black'
             }}
             onChangeText={setEmail}
+            placeholder="email"
             value={email}/>
         <TextInput
             style={{
                 height: 40,
-                borderColor: 'gray',
-                borderWidth: 1,
-                color: 'white'
+                width: '80%',
+                backgroundColor: 'white',
+                color: 'black'
             }}
             onChangeText={setPassword}
+            placeholder="password"
             value={password} />
         {loggedIn ?
         <TouchableOpacity
             onPress={logout}
             style={{
-                backgroundColor:"green"
+                width: '80%',
+                height: 40,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#FFD60A',
             }}>
-            <Text>Logout</Text>
+            <Text style={{
+                color: '#000814'
+            }}>Logout</Text>
         </TouchableOpacity>
         : 
         <TouchableOpacity
             onPress={login}
             style={{
-                backgroundColor:"green"
+                width: '80%',
+                height: 40,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                backgroundColor: '#FFD60A',
             }}>
-            <Text>Login</Text>
+            <Text style={{
+                color: '#000814'
+            }}>Login</Text>
         </TouchableOpacity>
         }
-
-        <Text style={{color: 'white'}}>Welcome {username}</Text>
     </View>
   );
 }
@@ -100,7 +124,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'flex-start'
+    backgroundColor: '#000814',
+    justifyContent: 'center'
   },
   title: {
     fontSize: 20,
