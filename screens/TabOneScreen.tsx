@@ -109,21 +109,36 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
                 }}>Logout</Text>
             </TouchableOpacity>
             : 
-            <TouchableOpacity
-                onPress={login}
-                style={{
-                    width: '80%',
-                    height: 40,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#FFD60A',
-                    borderRadius: 5,
-                }}>
-                <Text style={{
-                    color: '#001D3D'
-                }}>Login</Text>
-            </TouchableOpacity>
+            <View style={{width: '100%', display: 'flex', alignItems: 'center'}}>
+                <TouchableOpacity
+                    onPress={login}
+                    style={{
+                        width: '80%',
+                        height: 40,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        backgroundColor: '#FFD60A',
+                        borderRadius: 5,
+                    }}>
+                    <Text style={{
+                        color: '#001D3D'
+                    }}>Login</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{
+                        width: '80%',
+                        height: 40,
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}>
+                    <Text style={{
+                        color: '#FFD60A',
+                        textDecorationLine: 'underline'
+                    }}>Sign Up</Text>
+                </TouchableOpacity>
+            </View>
             }
         </View>
     </View>
