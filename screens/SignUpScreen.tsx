@@ -10,10 +10,10 @@ import { useFonts, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
 const height = Dimensions.get('window').height*0.3;
 const width = Dimensions.get('window').width;
 
-export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  const login = async () => {
+export default function SignUpScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+  const signup = async () => {
     try {
-        const response = await fetch("http://192.168.1.152:8080/login", {
+        const response = await fetch("http://192.168.1.152:8080/user", {
           method: "POST",
           headers: {
             Accept: 'application/json',
@@ -24,27 +24,10 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
             email: email
           })
         });
-
-        const json = await response.json();
-        setTokenKey(json);
-
-        const whoamiResponse = await fetch("http://192.168.1.152:8080/whoami", {
-            method: "POST",
-            headers: {
-                "Authorization": tokenKey
-            }
-        });
-
-        const user = await whoamiResponse.json();
-        setUsername(user);
-        console.log(username);
-
     } catch (error) {
         console.log(error);
         return;
     }
-
-    setLoggedIn(true);
   }
 
   const logout = () => {
@@ -71,7 +54,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
                 fontSize: 36,
                 alignSelf: 'baseline',
                 left: '10%'
-            }}>Log in</Text>
+            }}>Sign Up</Text>
             <TextInput
                 style={{
                     height: 40,
@@ -92,55 +75,16 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
                 onChangeText={setPassword}
                 placeholder="password"
                 value={password} />
-            {loggedIn ?
-            <TouchableOpacity
-                onPress={logout}
+            <TextInput
                 style={{
-                    width: '80%',
                     height: 40,
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#FFD60A',
-                    borderRadius: 5,
-                }}>
-                <Text style={{
-                    color: '#001D3D'
-                }}>Logout</Text>
-            </TouchableOpacity>
-            : 
-            <View style={{width: '100%', display: 'flex', alignItems: 'center'}}>
-                <TouchableOpacity
-                    onPress={login}
-                    style={{
-                        width: '80%',
-                        height: 40,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        backgroundColor: '#FFD60A',
-                        borderRadius: 5,
-                    }}>
-                    <Text style={{
-                        color: '#001D3D'
-                    }}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Register')}
-                    style={{
-                        width: '80%',
-                        height: 40,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                    }}>
-                    <Text style={{
-                        color: '#FFD60A',
-                        textDecorationLine: 'underline'
-                    }}>Sign Up</Text>
-                </TouchableOpacity>
-            </View>
-            }
+                    width: '80%',
+                    backgroundColor: 'white',
+                    color: 'black'
+                }}
+                onChangeText={setUsername}
+                placeholder="username"
+                value={username} />
         </View>
     </View>
   );
