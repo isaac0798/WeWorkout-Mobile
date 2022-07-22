@@ -85,6 +85,21 @@ export default function SignUpScreen({ navigation }: RootTabScreenProps<'TabOne'
                 onChangeText={setUsername}
                 placeholder="username"
                 value={username} />
+            <TouchableOpacity
+                onPress={signup}
+                style={{
+                    width: '80%',
+                    height: 40,
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: '#FFD60A',
+                    borderRadius: 5
+                }}>
+                <Text style = {{
+                    color: '#001D3D'
+                }}>Sign Up</Text>
+            </TouchableOpacity>
         </View>
     </View>
   );

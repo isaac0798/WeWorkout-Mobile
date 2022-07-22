@@ -110,7 +110,7 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
             </TouchableOpacity>
             : 
             <View style={{width: '100%', display: 'flex', alignItems: 'center'}}>
-                <TouchableOpacity
+               <TouchableOpacity
                     onPress={login}
                     style={{
                         width: '80%',
