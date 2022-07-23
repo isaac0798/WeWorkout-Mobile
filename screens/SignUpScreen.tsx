@@ -29,6 +29,8 @@ export default function SignUpScreen({ navigation }: RootTabScreenProps<'TabOne'
             create_date:`${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
           })
         });
+
+        alert("Succesfully signed up");
     } catch (error) {
         console.log(error);
         return;
