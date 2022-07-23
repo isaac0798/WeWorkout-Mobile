@@ -7,11 +7,12 @@ import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 import { useFonts, Comfortaa_400Regular } from '@expo-google-fonts/comfortaa';
 
-const height = Dimensions.get('window').height*0.3;
+const height = Dimensions.get('window').height*0.5;
 const width = Dimensions.get('window').width;
 
 export default function SignUpScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const signup = async () => {
+    const d = new Date();
     try {
         const response = await fetch("http://192.168.1.152:8080/user", {
           method: "POST",
@@ -20,8 +21,12 @@ export default function SignUpScreen({ navigation }: RootTabScreenProps<'TabOne'
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            unverifiedPassword: password,
-            email: email
+            passwordhash: password,
+            email: email,
+            username: username,
+            first_name: firstName,
+            last_name: surname,
+            create_date:`${d.getDate()}/${d.getMonth()}/${d.getFullYear()}`
           })
         });
     } catch (error) {
@@ -30,17 +35,12 @@ export default function SignUpScreen({ navigation }: RootTabScreenProps<'TabOne'
     }
   }
 
-  const logout = () => {
-    alert("bye");
-    setLoggedIn(false);
-  }
-
   let [fontsLoaded] = useFonts({Comfortaa_400Regular});
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  const [tokenKey, setTokenKey] = React.useState("");
   const [username, setUsername] = React.useState("");
+  const [firstName, setFirstname] = React.useState("");
+  const [surname, setSurname] = React.useState("");
 
   if (!fontsLoaded) {
     return <AppLoading />
@@ -60,31 +60,61 @@ export default function SignUpScreen({ navigation }: RootTabScreenProps<'TabOne'
                     height: 40,
                     width: '80%',
                     backgroundColor: 'white',
-                    color: 'black'
+                    color: 'black',
+                    borderRadius: 3
                 }}
                 onChangeText={setEmail}
-                placeholder="email"
+                placeholder="email..."
+                placeholderTextColor="grey"
                 value={email}/>
             <TextInput
                 style={{
                     height: 40,
                     width: '80%',
                     backgroundColor: 'white',
-                    color: 'black'
+                    color: 'black',
+                    borderRadius: 3
                 }}
                 onChangeText={setPassword}
-                placeholder="password"
+                placeholder="password..."
+                placeholderTextColor="grey"
                 value={password} />
             <TextInput
                 style={{
                     height: 40,
                     width: '80%',
                     backgroundColor: 'white',
-                    color: 'black'
+                    color: 'black',
+                    borderRadius: 3
                 }}
                 onChangeText={setUsername}
-                placeholder="username"
+                placeholder="username..."
+                placeholderTextColor="grey"
                 value={username} />
+            <TextInput
+                style={{
+                    height: 40,
+                    width: '80%',
+                    backgroundColor: 'white',
+                    color: 'black',
+                    borderRadius: 3
+                }}
+                onChangeText={setFirstname}
+                placeholder="First Name..."
+                placeholderTextColor="grey"
+                value={firstName} />
+            <TextInput
+                style={{
+                    height: 40,
+                    width: '80%',
+                    backgroundColor: 'white',
+                    color: 'black',
+                    borderRadius: 3
+                }}
+                onChangeText={setSurname}
+                placeholder="Surname..."
+                placeholderTextColor="grey"
+                value={surname} />
             <TouchableOpacity
                 onPress={signup}
                 style={{
