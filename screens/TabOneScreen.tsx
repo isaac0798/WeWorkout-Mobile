@@ -12,6 +12,8 @@ const width = Dimensions.get('window').width;
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   const login = async () => {
+    console.log(email);
+    console.log(password);
     try {
         const response = await fetch("http://192.168.1.152:8080/login", {
           method: "POST",
@@ -36,8 +38,9 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
         });
 
         const user = await whoamiResponse.json();
+        console.log(user)
         setUsername(user);
-        console.log(username);
+        alert(`Welcome ${user}`)
 
     } catch (error) {
         console.log(error);
